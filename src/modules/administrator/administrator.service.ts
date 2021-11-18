@@ -1,7 +1,7 @@
 import {
   BadRequestException,
   Injectable,
-  InternalServerErrorException,
+  NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Administrators } from 'src/entities/administrator.entity';
@@ -71,5 +71,16 @@ export class AdministratorService {
       throw new BadRequestException('Token malformed or expired');
 
     return payload;
+  }
+
+  async findByUsername(username: string) {
+    // Get Administrator by username
+    const getAdministrator = await this.administratorRepository.findOne({
+      username,
+    });
+
+    if (!getAdministrator) throw new NotFoundException('Admin not found');
+
+    return getAdministrator;
   }
 }

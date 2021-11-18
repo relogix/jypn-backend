@@ -9,8 +9,10 @@ import {
   Query,
   Req,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { validate, validateOrReject } from 'class-validator';
 import { Request } from 'express';
@@ -48,6 +50,7 @@ export class UpdateController {
   }
 
   @Post('create')
+  @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(FileInterceptor('thumbnail'))
   async create(
     @Body() body: { data: string },
@@ -70,6 +73,7 @@ export class UpdateController {
   }
 
   @Patch('update-data')
+  @UseGuards(AuthGuard('jwt'))
   async updateData(
     @Query() queryParam: IdDTO,
     @Body() body: UpdateUpdateDTO,
@@ -82,6 +86,7 @@ export class UpdateController {
   }
 
   @Patch('change-cover')
+  @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(FileInterceptor('thumbnail'))
   async changeCover(
     @UploadedFile() thumbnail: Express.Multer.File,
@@ -95,6 +100,7 @@ export class UpdateController {
   }
 
   @Delete('delete')
+  @UseGuards(AuthGuard('jwt'))
   async delete(@Query() queryParam: IdDTO): Promise<any> {
     try {
       return await this.updateService.delete(queryParam);
