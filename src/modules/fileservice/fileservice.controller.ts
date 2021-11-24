@@ -23,4 +23,19 @@ export class FileserviceController {
       dynamicException(error);
     }
   }
+
+  @Get('members/:filename')
+  async getMember(
+    @Param() { filename }: FilenameDTO,
+    @Res() res: Response,
+  ): Promise<any> {
+    try {
+      return await this.fileserviceService.getFile(
+        `${fileservicePath}/members/${filename}`,
+        res,
+      );
+    } catch (error) {
+      dynamicException(error);
+    }
+  }
 }

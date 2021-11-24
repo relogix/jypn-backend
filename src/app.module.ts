@@ -6,6 +6,7 @@ import { DatabaseModule } from './database/database.module';
 import { AdministratorModule } from './modules/administrator/administrator.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { FileserviceModule } from './modules/fileservice/fileservice.module';
+import { MemberModule } from './modules/members/member.module';
 import { UpdateModule } from './modules/updates/update.module';
 
 @Module({
@@ -16,6 +17,7 @@ import { UpdateModule } from './modules/updates/update.module';
     FileserviceModule,
     AdministratorModule,
     UpdateModule,
+    MemberModule,
   ],
   controllers: [AppController],
   providers: [AppService],

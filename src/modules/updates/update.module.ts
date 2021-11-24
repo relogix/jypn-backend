@@ -9,5 +9,6 @@ import { UpdateService } from './update.service';
   imports: [TypeOrmModule.forFeature([Updates])],
   controllers: [UpdateController],
   providers: [UpdateService, FileserviceService],
+  exports: [TypeOrmModule.forFeature([Updates]), UpdateService],
 })
 export class UpdateModule {}

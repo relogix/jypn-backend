@@ -26,12 +26,9 @@ export class UpdateController {
   constructor(private readonly updateService: UpdateService) {}
 
   @Get('search')
-  async search(
-    @Query() queryParam: SearchDTO,
-    @Req() req: Request,
-  ): Promise<any> {
+  async search(@Query() queryParam: SearchDTO): Promise<any> {
     try {
-      return await this.updateService.search(queryParam, req);
+      return await this.updateService.search(queryParam);
     } catch (error) {
       dynamicException(error);
     }
@@ -40,10 +37,9 @@ export class UpdateController {
   @Get('find/update-code/:updateCode')
   async findByUpdateCode(
     @Param('updateCode') updateCode: string,
-    @Req() req: Request,
   ): Promise<any> {
     try {
-      return await this.updateService.findByUpdateCode(updateCode, req);
+      return await this.updateService.findByUpdateCode(updateCode);
     } catch (error) {
       dynamicException(error);
     }

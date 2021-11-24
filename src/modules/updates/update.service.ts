@@ -15,7 +15,7 @@ export class UpdateService {
     private connection: Connection,
   ) {}
 
-  async search(queryParam: SearchDTO, req: Request) {
+  async search(queryParam: SearchDTO) {
     // Data preparation
     const page = queryParam?.page - 1 >= 0 ? queryParam?.page - 1 : 0;
     const sortBy = queryParam?.sortBy
@@ -46,8 +46,8 @@ export class UpdateService {
         ...update,
         ...(files.length
           ? {
-              thumbnailUrl: `http://${req.headers.host}/files/updates/thumbnails/${files[0]}`,
-              lowThumbnailUrl: `http://${req.headers.host}/files/updates/thumbnails/${files[1]}`,
+              thumbnailUrl: `${process.env.HOST}/files/updates/thumbnails/${files[0]}`,
+              lowThumbnailUrl: `${process.env.HOST}/files/updates/thumbnails/${files[1]}`,
             }
           : {}),
       };
@@ -67,7 +67,7 @@ export class UpdateService {
     };
   }
 
-  async findByUpdateCode(updateCode: string, req: Request) {
+  async findByUpdateCode(updateCode: string) {
     // Get Update
     let update: any = await this.connection
       .getRepository(Updates)
@@ -82,8 +82,8 @@ export class UpdateService {
     if (thumbnails.length)
       update = {
         ...update,
-        thumbnailUrl: `http://${req.headers.host}/files/updates/thumbnails/${thumbnails[0]}`,
-        lowThumbnailUrl: `http://${req.headers.host}/files/updates/thumbnails/${thumbnails[1]}`,
+        thumbnailUrl: `${process.env.HOST}/files/updates/thumbnails/${thumbnails[0]}`,
+        lowThumbnailUrl: `${process.env.HOST}/files/updates/thumbnails/${thumbnails[1]}`,
       };
 
     return { update };
