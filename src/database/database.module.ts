@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 const getConfig = (env: ConfigService) => ({
@@ -13,6 +13,11 @@ const getConfig = (env: ConfigService) => ({
   entities: ['dist/**/*.entity{.ts,.js}'],
   synchronize: false,
   namingStrategy: new SnakeNamingStrategy(),
+  extra: {
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  },
 });
 
 @Module({
