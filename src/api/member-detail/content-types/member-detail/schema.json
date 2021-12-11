@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "member_details",
+  "info": {
+    "singularName": "member-detail",
+    "pluralName": "member-details",
+    "displayName": "MemberDetail",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "fullName": {
+      "type": "string",
+      "required": true
+    },
+    "member": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::member.member",
+      "inversedBy": "memberDetail"
+    },
+    "koreanName": {
+      "type": "string",
+      "required": true
+    },
+    "birthday": {
+      "type": "date",
+      "required": true
+    },
+    "birthPlace": {
+      "type": "string"
+    },
+    "coverImages": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "biography": {
+      "type": "text"
+    }
+  }
+}
